@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --background: #060606;
+  --background-soft: #111111;
+  --panel: rgba(255, 255, 255, 0.04);
+  --panel-strong: rgba(255, 255, 255, 0.08);
+  --border: rgba(214, 189, 137, 0.18);
+  --text: #f3f0ea;
+  --muted: #b6b0a5;
+  --accent: #d6bd89;
+  --accent-soft: rgba(214, 189, 137, 0.16);
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Manrope", "Helvetica Neue", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at top, rgba(214, 189, 137, 0.08), transparent 32%),
+    linear-gradient(180deg, #090909 0%, #050505 45%, #070707 100%);
+  color: var(--text);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.font-display {
+  font-family: var(--font-serif);
+}
+
+.container-shell {
+  position: relative;
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.section-spacing {
+  padding: 6rem 0;
+}
+
+.section-line {
+  position: relative;
+}
+
+.section-line::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 72px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+.surface {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.noise-overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.12;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08) 0.5px, transparent 0.8px),
+    radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.04) 0.5px, transparent 0.9px),
+    radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.05) 0.4px, transparent 0.8px);
+  background-size: 180px 180px, 210px 210px, 240px 240px;
+  mix-blend-mode: soft-light;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 1rem;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.hero-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(214, 189, 137, 0.16), transparent 22%),
+    radial-gradient(circle at 72% 68%, rgba(214, 189, 137, 0.08), transparent 18%),
+    linear-gradient(130deg, rgba(18, 18, 18, 0.94), rgba(7, 7, 7, 0.72) 42%, rgba(3, 3, 3, 0.96)),
+    repeating-linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0.018) 0,
+      rgba(255, 255, 255, 0.018) 1px,
+      transparent 1px,
+      transparent 90px
+    );
+}
+
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.48) 52%, rgba(0, 0, 0, 0.7)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.72));
+}
+
+.hero-media-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 120px 120px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 90%);
+  opacity: 0.18;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 2.75rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+.primary-button,
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.35rem;
+  padding: 0 1.4rem;
+  border-radius: 999px;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, var(--accent) 0%, #c8a86f 100%);
+  color: #111111;
+  box-shadow: 0 12px 32px rgba(214, 189, 137, 0.18);
+}
+
+.primary-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 38px rgba(214, 189, 137, 0.26);
+}
+
+.secondary-button {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+}
+
+.secondary-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(214, 189, 137, 0.35);
+  background: rgba(214, 189, 137, 0.08);
+}
+
+.card-hover {
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    background-color 260ms ease,
+    box-shadow 260ms ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(214, 189, 137, 0.24);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(214, 189, 137, 0.04));
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 700ms ease,
+    transform 700ms ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.field {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1rem 1rem;
+  color: var(--text);
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+.field::placeholder {
+  color: rgba(182, 176, 165, 0.68);
+}
+
+.field:focus {
+  outline: none;
+  border-color: rgba(214, 189, 137, 0.38);
+  background: rgba(214, 189, 137, 0.05);
+}
+
+@media (max-width: 768px) {
+  .section-spacing {
+    padding: 4.5rem 0;
+  }
+
+  .hero-media {
+    inset: 0.75rem;
+  }
+}
