@@ -158,6 +158,13 @@ function SectionHeading({ eyebrow, title, description }) {
 }
 
 export default function App() {
+  const [formData, setFormData] = useState({
+    name: '',
+    contact: '',
+    message: '',
+  })
+  const [submitState, setSubmitState] = useState('idle')
+
   return (
     <div className="noise-overlay min-h-screen overflow-x-hidden bg-[color:var(--background)]">
       <header className="sticky top-0 z-40 border-b border-white/6 bg-black/50 backdrop-blur-xl">
@@ -424,14 +431,15 @@ export default function App() {
                 Share a few details and we can follow up with availability, scheduling, and
                 next steps.
               </p>
-              <div className="mt-8 rounded-[1.5rem] border border-white/8 bg-white/[0.02] p-5">
+              <div className="mt-8 max-w-lg rounded-[1.5rem] border border-white/8 bg-white/[0.02] p-6">
                 <p className="text-xs uppercase tracking-[0.22em] text-[color:var(--accent)]">
                   Pasadena / Los Angeles
                 </p>
                 <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">
-                  Update contact details or add direct booking links here when ready.
+                  Sessions are offered by inquiry and scheduled around availability. Share
+                  your goals, preferred days, and any training background to help guide the
+                  first conversation.
                 </p>
-                {/* Update contact information in this section or add social / booking links */}
               </div>
             </Reveal>
 
@@ -440,13 +448,34 @@ export default function App() {
                 className="space-y-5"
                 onSubmit={(event) => {
                   event.preventDefault()
+                  setSubmitState('submitted')
+                  setFormData({
+                    name: '',
+                    contact: '',
+                    message: '',
+                  })
                 }}
               >
                 <div>
                   <label className="mb-2 block text-sm uppercase tracking-[0.18em] text-[color:var(--muted)]">
                     Name
                   </label>
-                  <input className="field" type="text" name="name" placeholder="Your name" />
+                  <input
+                    className="field"
+                    type="text"
+                    name="name"
+                    placeholder="Your name"
+                    value={formData.name}
+                    onChange={(event) => {
+                      setFormData((current) => ({
+                        ...current,
+                        name: event.target.value,
+                      }))
+                      if (submitState !== 'idle') {
+                        setSubmitState('idle')
+                      }
+                    }}
+                  />
                 </div>
                 <div>
                   <label className="mb-2 block text-sm uppercase tracking-[0.18em] text-[color:var(--muted)]">
@@ -457,6 +486,16 @@ export default function App() {
                     type="text"
                     name="contact"
                     placeholder="Email address or phone number"
+                    value={formData.contact}
+                    onChange={(event) => {
+                      setFormData((current) => ({
+                        ...current,
+                        contact: event.target.value,
+                      }))
+                      if (submitState !== 'idle') {
+                        setSubmitState('idle')
+                      }
+                    }}
                   />
                 </div>
                 <div>
@@ -467,15 +506,32 @@ export default function App() {
                     className="field min-h-36 resize-y"
                     name="message"
                     placeholder="Tell us a bit about your goals, schedule, or training interest."
+                    value={formData.message}
+                    onChange={(event) => {
+                      setFormData((current) => ({
+                        ...current,
+                        message: event.target.value,
+                      }))
+                      if (submitState !== 'idle') {
+                        setSubmitState('idle')
+                      }
+                    }}
                   />
                 </div>
-                <button type="submit" className="primary-button w-full sm:w-auto">
-                  Submit Inquiry
-                </button>
-                <p className="text-sm leading-7 text-[color:var(--muted)]">
-                  This form is currently front-end only.
-                </p>
-                {/* Connect a backend later by replacing the onSubmit handler with your API or form service integration */}
+                <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
+                  <button type="submit" className="primary-button w-full sm:w-auto">
+                    Submit Inquiry
+                  </button>
+                  <p className="text-sm leading-7 text-[color:var(--muted)] sm:max-w-xs sm:text-right">
+                    Responses typically begin with scheduling and availability.
+                  </p>
+                </div>
+                {submitState === 'submitted' ? (
+                  <div className="rounded-[1.25rem] border border-[color:var(--border)] bg-[color:var(--accent-soft)] px-4 py-3 text-sm leading-7 text-white/82">
+                    Inquiry drafted. Connect this form to email, Formspree, or your backend
+                    when you&apos;re ready to receive submissions live.
+                  </div>
+                ) : null}
               </form>
             </Reveal>
           </div>
@@ -483,7 +539,7 @@ export default function App() {
       </main>
 
       <footer className="border-t border-white/6 py-10">
-        <div className="container-shell flex flex-col gap-4 text-sm text-[color:var(--muted)] md:flex-row md:items-end md:justify-between">
+        <div className="container-shell flex flex-col gap-5 text-sm text-[color:var(--muted)] md:flex-row md:items-center md:justify-between">
           <div>
             <p className="font-display text-2xl tracking-[0.12em] text-white">
               MIDNIGHT BOXING CLUB
